@@ -48,7 +48,7 @@ data "oci_core_images" "autonomous" {
 
 data "oci_core_shapes" "intel" {
     compartment_id = data.oci_identity_compartments.sevensteps.id
-    image_id = data.oci_core_images.autonomous.images[0].image_id
+    image_id = data.oci_core_images.autonomous.images[0].id
     availability_domain = data.oci_identity_availability_domains.sevensteps.id
     filter {
         name = "name"
@@ -62,7 +62,7 @@ resource "oci_core_instance" "autonomous_linux" {
     shape = data.oci_core_shapes.intel.shapes[0].name
     display_name = var.display_name
     source_details {
-        source_id = data.oci_core_images.autonomous.images[0].image_id
+        source_id = data.oci_core_images.autonomous.images[0].id
         source_type = "image"
     }
     create_vnic_details {

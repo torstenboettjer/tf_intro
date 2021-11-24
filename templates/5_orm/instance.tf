@@ -56,6 +56,7 @@ data "oci_core_shapes" "intel" {
     }
 }
 
+/*
 resource "oci_core_instance" "autonomous_linux" {
     availability_domain = data.oci_identity_availability_domains.sevensteps.id
     compartment_id = var.tenancy_ocid
@@ -70,7 +71,21 @@ resource "oci_core_instance" "autonomous_linux" {
         subnet_id = data.oci_core_subnets.sevensteps.id
     }
 }
+*/
 
 output "server" {
   value = oci_core_instance.autonomous_linux
 }
+
+output "images" {
+  value = data.oci_core_images.autonomous
+}
+
+output "shapes" {
+  value = data.oci_core_shapes.intel
+}
+
+output "subnets" {
+  value = data.oci_core_subnets.sevensteps
+}
+

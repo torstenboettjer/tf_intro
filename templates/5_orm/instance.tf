@@ -78,7 +78,6 @@ resource "oci_core_instance" "autonomous_linux" {
 output "server" {
   value = oci_core_instance.autonomous_linux
 }
-*/
 
 output "images" {
   value = data.oci_core_images.autonomous.images[0].id

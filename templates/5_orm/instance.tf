@@ -8,10 +8,10 @@ provider "oci" {
 
 variable "tenancy_ocid" {}
 
-data "oci_identity_tenancy" "account" {
+data "oci_identity_tenancy" "sevensteps" {
     tenancy_id = var.tenancy_ocid
 }
-data "oci_identity_regions" "account" {}
+data "oci_identity_regions" "sevensteps" {}
 
 data "oci_identity_compartments" "sevensteps" {
     compartment_id = var.tenancy_ocid
@@ -19,17 +19,17 @@ data "oci_identity_compartments" "sevensteps" {
     name = "organization_project_dev_application_compartment"
 }
 
-data "oci_identity_availability_domains" "seven_steps" {
+data "oci_identity_availability_domains" "sevensteps" {
     compartment_id = var.tenancy_ocid
 }
 
-data "oci_core_subnets" "seven_steps" {
+data "oci_core_subnets" "sevensteps" {
     compartment_id = data.oci_identity_compartments.sevensteps.id
 }
 
 locals {
     region_map ={
-        for city in data.oci_identity_regions.account.regions :
+        for city in data.oci_identity_regions.sevensteps.regions :
         city.key => city.name
     }
     home_region = lookup(
@@ -38,7 +38,7 @@ locals {
     )
 }
 
-data "oci_core_images" "service" {
+data "oci_core_images" "autonomous" {
     compartment_id = data.oci_identity_compartments.sevensteps.id
     filter {
         name = "operating_system"
@@ -46,10 +46,10 @@ data "oci_core_images" "service" {
     }
 }
 
-data "oci_core_shapes" "service" {
+data "oci_core_shapes" "intel" {
     compartment_id = data.oci_identity_compartments.sevensteps.id
-    image_id = data.oci_core_images.service.images[0].id
-    availability_domain = data.oci_identity_availability_domains.seven_steps.id
+    image_id = data.oci_core_images.autonomous.images[0].id
+    availability_domain = data.oci_identity_availability_domains.sevensteps.id
     filter {
         name = "name"
         values = [ "VM.Standard2.1", "VM.Standard2.4" ]
@@ -59,15 +59,15 @@ data "oci_core_shapes" "service" {
 resource "oci_core_instance" "autonomous_linux" {
     availability_domain = data.oci_identity_availability_domains.seven_steps.id
     compartment_id = data.oci_identity_compartments.sevensteps.id
-    shape = data.oci_core_shapes.service.shapes[0].name
+    shape = data.oci_core_shapes.intel.shapes[0].name
     display_name = var.display_name
     source_details {
-        source_id = data.oci_core_images.service.images[0].id
+        source_id = data.oci_core_images.service.autonomous[0].id
         source_type = "image"
     }
     create_vnic_details {
         assign_public_ip = false
-        subnet_id = var.subnet_id
+        subnet_id = data.oci_core_subnets.sevensteps[0].id
     }
 }
 

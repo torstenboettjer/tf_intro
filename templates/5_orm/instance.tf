@@ -51,7 +51,7 @@ data "oci_core_images" "autonomous" {
 }
 
 data "oci_core_shapes" "intel" {
-    compartment_id = var.tenancy_ocid
+    compartment_id = data.oci_identity_compartments.sevensteps.compartments[0].id
     image_id = data.oci_core_images.autonomous.images[0].id
     availability_domain = data.oci_identity_availability_domains.sevensteps.id
     filter {
@@ -98,3 +98,6 @@ output "subnets" {
   value = data.oci_core_subnets.sevensteps.subnets[0].id
 }
 
+output "ads" {
+  value = data.oci_identity_availability_domains.sevensteps
+}

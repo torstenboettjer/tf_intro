@@ -57,17 +57,17 @@ data "oci_core_shapes" "intel" {
 }
 
 resource "oci_core_instance" "autonomous_linux" {
-    availability_domain = data.oci_identity_availability_domains.seven_steps.id
+    availability_domain = data.oci_identity_availability_domains.sevensteps.id
     compartment_id = data.oci_identity_compartments.sevensteps.id
     shape = data.oci_core_shapes.intel.shapes[0].name
     display_name = var.display_name
     source_details {
-        source_id = data.oci_core_images.service.autonomous[0].id
+        source_id = data.oci_core_images.autonomous.images[0].id
         source_type = "image"
     }
     create_vnic_details {
         assign_public_ip = false
-        subnet_id = data.oci_core_subnets.sevensteps[0].id
+        subnet_id = data.oci_core_subnets.sevensteps[0].subnet_id
     }
 }
 

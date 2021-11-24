@@ -71,11 +71,11 @@ resource "oci_core_instance" "autonomous_linux" {
         subnet_id = data.oci_core_subnets.sevensteps.id
     }
 }
-*/
 
 output "server" {
   value = oci_core_instance.autonomous_linux
 }
+*/
 
 output "images" {
   value = data.oci_core_images.autonomous

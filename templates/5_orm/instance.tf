@@ -24,7 +24,7 @@ data "oci_identity_availability_domains" "sevensteps" {
 }
 
 data "oci_core_subnets" "sevensteps" {
-    compartment_id = data.oci_identity_compartments.sevensteps.id
+    compartment_id = data.oci_identity_compartments.sevensteps.compartments[0].id
 }
 
 locals {

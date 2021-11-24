@@ -13,6 +13,12 @@ data "oci_identity_tenancy" "account" {
 }
 data "oci_identity_regions" "account" {}
 
+data "oci_identity_compartments" "sevensteps" {
+    compartment_id = var.tenancy_ocid
+    compartment_id_in_subtree = true
+    name = "organization_project_dev_application_compartment"
+}
+
 locals {
     region_map ={
         for city in data.oci_identity_regions.account.regions :
@@ -25,7 +31,7 @@ locals {
 }
 
 data "oci_core_images" "service" {
-    compartment_id = var.compartment_id
+    compartment_id = data.oci_identity_compartments.sevensteps.id
     filter {
         name = "operating_system"
         values = [ "Oracle Autonomous Linux" ]
@@ -33,7 +39,7 @@ data "oci_core_images" "service" {
 }
 
 data "oci_core_shapes" "service" {
-    compartment_id = var.compartment_id
+    compartment_id = data.oci_identity_compartments.sevensteps.id
     image_id = data.oci_core_images.service.images[0].id
     availability_domain = var.availability_domain
     filter {
@@ -44,7 +50,7 @@ data "oci_core_shapes" "service" {
 
 resource "oci_core_instance" "autonomous_linux" {
     availability_domain = var.availability_domain
-    compartment_id = var.compartment_id
+    compartment_id = data.oci_identity_compartments.sevensteps.id
     shape = data.oci_core_shapes.service.shapes[0].name
     display_name = var.display_name
     source_details {

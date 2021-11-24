@@ -12,7 +12,7 @@ variableGroups:
   visible: false
   variables:
   - tenancy_ocid
-  - compartment_ocid
+  - compartment_id
   - region
   - current_user_ocid
   
@@ -30,7 +30,7 @@ variables:
     required: true
     visibile: false
 
-  compartment_ocid:
+  compartment_id:
     title: "Compartment ID"
     description: "The Oracle Cloud Identifier (OCID) for your compartment"
     type: string

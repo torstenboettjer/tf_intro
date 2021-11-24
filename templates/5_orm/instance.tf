@@ -25,6 +25,10 @@ data "oci_identity_availability_domains" "sevensteps" {
 
 data "oci_core_subnets" "sevensteps" {
     compartment_id = data.oci_identity_compartments.sevensteps.compartments[0].id
+    filter {
+      name = "display_name" 
+      values = ["organization_project_dev_app"]
+    }
 }
 
 locals {

@@ -82,7 +82,7 @@ output "images" {
 }
 
 output "compartment" {
-  value = data.oci_identity_compartments.sevensteps
+  value = data.oci_identity_compartments.sevensteps.compartments[0].id
 }
 
 

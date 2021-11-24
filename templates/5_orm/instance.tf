@@ -81,6 +81,11 @@ output "images" {
   value = data.oci_core_images.autonomous.images[0].id
 }
 
+output "compartment" {
+  value = data.oci_identity_compartments.sevensteps
+}
+
+
 output "shapes" {
   value = data.oci_core_shapes.intel
 }

@@ -39,7 +39,7 @@ locals {
 }
 
 data "oci_core_images" "autonomous" {
-    compartment_id = data.oci_identity_compartments.sevensteps.id
+    compartment_id = var.tenancy_ocid
     filter {
         name = "operating_system"
         values = [ "Oracle Autonomous Linux" ]
@@ -47,7 +47,7 @@ data "oci_core_images" "autonomous" {
 }
 
 data "oci_core_shapes" "intel" {
-    compartment_id = data.oci_identity_compartments.sevensteps.id
+    compartment_id = var.tenancy_ocid
     image_id = data.oci_core_images.autonomous.images[0].id
     availability_domain = data.oci_identity_availability_domains.sevensteps.id
     filter {
@@ -58,7 +58,7 @@ data "oci_core_shapes" "intel" {
 
 resource "oci_core_instance" "autonomous_linux" {
     availability_domain = data.oci_identity_availability_domains.sevensteps.id
-    compartment_id = data.oci_identity_compartments.sevensteps.id
+    compartment_id = var.tenancy_ocid
     shape = data.oci_core_shapes.intel.shapes[0].name
     display_name = var.display_name
     source_details {

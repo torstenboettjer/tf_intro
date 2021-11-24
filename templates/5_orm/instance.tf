@@ -19,6 +19,14 @@ data "oci_identity_compartments" "sevensteps" {
     name = "organization_project_dev_application_compartment"
 }
 
+data "oci_identity_availability_domains" "seven_steps" {
+    compartment_id = var.tenancy_ocid
+}
+
+data "oci_core_subnets" "seven_steps" {
+    compartment_id = data.oci_identity_compartments.sevensteps.id
+}
+
 locals {
     region_map ={
         for city in data.oci_identity_regions.account.regions :
@@ -49,7 +57,7 @@ data "oci_core_shapes" "service" {
 }
 
 resource "oci_core_instance" "autonomous_linux" {
-    availability_domain = var.availability_domain
+    availability_domain = data.oci_identity_availability_domains.seven_steps.id
     compartment_id = data.oci_identity_compartments.sevensteps.id
     shape = data.oci_core_shapes.service.shapes[0].name
     display_name = var.display_name

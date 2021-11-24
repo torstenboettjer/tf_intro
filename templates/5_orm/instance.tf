@@ -16,7 +16,7 @@ data "oci_identity_regions" "sevensteps" {}
 data "oci_identity_compartments" "sevensteps" {
     compartment_id = var.tenancy_ocid
     compartment_id_in_subtree = true
-    name = "organization_project_dev_application_compartment"
+    name = "organization_project_dev_network_compartment"
 }
 
 data "oci_identity_availability_domains" "sevensteps" {
@@ -78,7 +78,7 @@ output "server" {
 */
 
 output "images" {
-  value = data.oci_core_images.autonomous
+  value = data.oci_core_images.autonomous.images[0].id
 }
 
 output "shapes" {

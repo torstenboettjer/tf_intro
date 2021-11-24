@@ -49,7 +49,7 @@ data "oci_core_images" "service" {
 data "oci_core_shapes" "service" {
     compartment_id = data.oci_identity_compartments.sevensteps.id
     image_id = data.oci_core_images.service.images[0].id
-    availability_domain = var.availability_domain
+    availability_domain = data.oci_identity_availability_domains.seven_steps.id
     filter {
         name = "name"
         values = [ "VM.Standard2.1", "VM.Standard2.4" ]

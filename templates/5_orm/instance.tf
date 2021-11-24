@@ -75,27 +75,6 @@ resource "oci_core_instance" "autonomous_linux" {
     }
 }
 
-output "server" {
+output "cloud_server" {
   value = oci_core_instance.autonomous_linux
-}
-
-output "images" {
-  value = data.oci_core_images.autonomous.images[0].id
-}
-
-output "compartment" {
-  value = data.oci_identity_compartments.sevensteps.compartments[0].id
-}
-
-
-output "shapes" {
-  value = data.oci_core_shapes.intel.shapes[0].name
-}
-
-output "subnets" {
-  value = data.oci_core_subnets.sevensteps.subnets[0].id
-}
-
-output "ads" {
-  value = data.oci_identity_availability_domains.sevensteps.availability_domains[0].name
 }

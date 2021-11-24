@@ -8,3 +8,6 @@ data "oci_core_images" "service" {
     compartment_id = var.compartment_id
 }
 
+output "images" {
+  value = data.oci_core_images.service
+}

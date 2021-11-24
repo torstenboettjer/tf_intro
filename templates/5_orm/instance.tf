@@ -53,7 +53,7 @@ data "oci_core_images" "autonomous" {
 data "oci_core_shapes" "intel" {
     compartment_id = data.oci_identity_compartments.sevensteps.compartments[0].id
     image_id = data.oci_core_images.autonomous.images[0].id
-    availability_domain = data.oci_identity_availability_domains.sevensteps.id
+    availability_domain = data.oci_identity_availability_domains.sevensteps.availability_domains[0].name
     filter {
         name = "name"
         values = [ "VM.Standard2.1", "VM.Standard2.4" ]
@@ -99,5 +99,5 @@ output "subnets" {
 }
 
 output "ads" {
-  value = data.oci_identity_availability_domains.sevensteps
+  value = data.oci_identity_availability_domains.sevensteps.availability_domains[0].name
 }

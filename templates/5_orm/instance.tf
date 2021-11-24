@@ -72,7 +72,7 @@ resource "oci_core_instance" "autonomous_linux" {
     }
     create_vnic_details {
         assign_public_ip = false
-        subnet_id = data.oci_core_subnets.sevensteps.id
+        subnet_id = data.oci_core_subnets.sevensteps.subnets[0].id
     }
 }
 
@@ -95,6 +95,6 @@ output "shapes" {
 }
 
 output "subnets" {
-  value = data.oci_core_subnets.sevensteps
+  value = data.oci_core_subnets.sevensteps.subnets[0].id
 }
 

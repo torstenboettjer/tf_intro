@@ -34,7 +34,7 @@ locals {
     }
     home_region = lookup(
         local.region_map,
-        data.oci_identity_tenancy.account.home_region_key
+        data.oci_identity_tenancy.sevensteps.home_region_key
     )
 }
 
@@ -67,7 +67,7 @@ resource "oci_core_instance" "autonomous_linux" {
     }
     create_vnic_details {
         assign_public_ip = false
-        subnet_id = data.oci_core_subnets.sevensteps[0].subnet_id
+        subnet_id = data.oci_core_subnets.sevensteps.subnet_id
     }
 }
 

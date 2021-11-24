@@ -1,0 +1,60 @@
+# Copyright (c) 2020 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+title: "Seven Steps"
+description: "Oracle Resource Manager Stack"
+stackDescription: "My first resource manager stack"
+schemaVersion: 1.1.0
+version: "20210611"
+
+variableGroups:
+- title: "Hidden Configuration"
+  visible: false
+  variables:
+  - tenancy_ocid
+  - compartment_ocid
+  - region
+  - current_user_ocid
+  
+- title: "Server Name"
+  visible: true
+  variables:
+  - display_name
+
+variables:
+  # Hidden Configuration
+  tenancy_ocid:
+    title: "Tenancy ID"
+    description: "The Oracle Cloud Identifier (OCID) for your tenancy"
+    type: string
+    required: true
+    visibile: false
+
+  compartment_ocid:
+    title: "Compartment ID"
+    description: "The Oracle Cloud Identifier (OCID) for your compartment"
+    type: string
+    required: true
+    visibile: false
+
+  region:
+    title: "Home Region"
+    description: "The Oracle Cloud Identifier (OCID) for your home region"
+    type: string
+    required: true
+    visibile: false
+  
+  current_user_ocid:
+    title: "User ID"
+    description: "The Oracle Cloud Identifier (OCID) for the current user"
+    type: string
+    required: true
+    visibile: false
+
+  # General Configuration
+  display_name:
+    title: "Display Name"
+    description: "Name for my Server"
+    type: string
+    required: true
+    visibile: true

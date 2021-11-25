@@ -1,2 +1,5 @@
-# tf_intro
-Terraform for OCI introduction
+# Code zur Terraform Einführung für Oracle Cloud Infrastructure
+
+![Einführung](./img.png)
+
+### Links

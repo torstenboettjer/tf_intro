@@ -1,5 +1,5 @@
 # Code zur Terraform Einführung für Oracle Cloud Infrastructure
 
-![Einführung](./img.png)
+![Einführung](./7steps1.jpg)
 
 ### Links
